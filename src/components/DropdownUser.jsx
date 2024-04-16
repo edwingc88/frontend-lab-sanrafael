@@ -43,10 +43,10 @@ const DropdownUser = () => {
         to='#'
       >
         <span className='hidden text-right lg:block'>
-          <span className='block text-sm font-medium text-black dark:text-white'>
-            Thomas Anree
+          <span className='block text-sm font-medium text-black dark:text-gray-500'>
+            Pedro Rodriguez
           </span>
-          <span className='block text-xs'>UX Designer</span>
+          <span className='block text-xs'>Manager</span>
         </span>
 
         <span className='h-12 w-12 rounded-full'>
@@ -85,7 +85,7 @@ const DropdownUser = () => {
           <li>
             <Link
               to='/profile'
-              className='flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base'
+              className='flex items-center pt-3 pb-3 gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base'
             >
               <svg
                 className='fill-current'
@@ -107,7 +107,7 @@ const DropdownUser = () => {
               My Profile
             </Link>
           </li>
-          <li>
+          {/*     <li>
             <Link
               to='#'
               className='flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base'
@@ -152,7 +152,7 @@ const DropdownUser = () => {
               </svg>
               Account Settings
             </Link>
-          </li>
+          </li> */}
         </ul>
         <button className='flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base'>
           <svg

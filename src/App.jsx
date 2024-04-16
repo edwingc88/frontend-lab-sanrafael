@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types'
 
 import { Suspense, lazy, useEffect, useState } from 'react'
 
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Loader from './common/Loader'
 import routes from './routes'
@@ -13,7 +13,8 @@ import ECommerce from './pages/Dashboard/ECommerce'
 import Home from '../src/pages/Home'
 import Register from '../src/pages/Register'
 import Login from '../src/pages/Login'
-import Dashboard from '../src/pages/Dashboard'
+/* import Dashboard from '../src/pages/Dashboard' */
+
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'))
 
 const AppDashboard = () => {
@@ -41,37 +42,45 @@ const AppDashboard = () => {
             )
           })}
         </Route>
+        <Route path='*' element={<div>404</div>} />
       </Routes>
     </>
   )
 }
 
-const AppLanding = ({ authvalue }) => {
-  const [visible, setVisible] = useState(true)
+const AppLanding = ({ authvalue, clickBotonHandle }) => {
+  const [visible, setVisible] = useState(authvalue)
 
-  const componenteGG = () => {
+  /* const componenteGG = () => {
     if (authvalue) {
       setVisible(true)
     } else {
       setVisible(false)
     }
   }
+ */
+
+  const navigate = useNavigate()
+  const clickInside = () => {
+    clickBotonHandle()
+    navigate('/')
+  }
 
   useEffect(() => {
-    componenteGG()
+    setVisible(authvalue)
   }, [authvalue])
 
   return (
-    <>{visible ? <h1>Bienvenido</h1> : <h1>No estas autorizado</h1>}
-      {visible && <><Navbar />
+    <>
+      {visible && <><div className='flex justify-self-end bg-blue-500 p-1'><button className=' bg-[#287abe]   px-2 p-1 rounded-b align-middle m-auto text-white' onClick={clickInside}>Boton para ir a Dashboard</button></div><Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          {/*      <Route path='/dashboard' element={<Dashboard />} /> */}
         </Routes>
-                 </>}
-      {!visible && <AppDashboard />}
+      </>}
+      {!visible && <><div className='flex justify-self-end bg-blue-500 p-1 '><button className='bg-[#287abe] text-white px-2 p-1 rounded-b align-middle m-auto' onClick={clickInside}>Boton para ir a Landing</button></div><AppDashboard /></>}
     </>
   )
 }
@@ -90,8 +99,8 @@ function App () {
 
   return loading ? (<Loader />) : (
     <>
-      <AppLanding authvalue={auth} />
-      <button onClick={handleClick}>Boton que se usa como cookies de Auth</button>
+      <AppLanding authvalue={auth} clickBotonHandle={handleClick} />
+      {/* <button onClick={handleClick}>Boton que se usa como cookies de Auth</button> */}
     </>
   )
 }
@@ -101,3 +110,5 @@ export default App
 AppLanding.prototype = {
   authvalue: PropTypes.bool.isRequired
 }
+
+/* {visible ? <h1>Pagina Landing</h1> : <h1>Bienvenido Dashboard</h1>} */
